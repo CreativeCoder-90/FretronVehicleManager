@@ -16,7 +16,7 @@ object TestDataSource {
     }
 
     fun getVehicle():Vehicle{
-        val jsonString = "{\n" +
+        var jsonString = "{\n" +
                 "    \"uuid\": \"1a1c5fe5-3ee0-453d-8425-5fec44961029\",\n" +
                 "    \"registrationNumber\": \"11\",\n" +
                 "    \"driverName\": \"Driver Name\",\n" +
