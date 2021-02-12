@@ -8,15 +8,17 @@ import org.junit.Assert.*
 
 class VehicleRepositoryShould {
 
+    private lateinit var vehicleRepository: VehicleRepository
+
     @Test
     fun create_new_vehicle_with_new_registration_number(){
-         var vehicle:Vehicle = TestDataSource.getVehicle()
+         var vehicle:Vehicle = TestDataSource.getVehicle()   //this is the vehicle provided by user
         var createdVehicleByRepository:Vehicle? = createNewVehicle(vehicle)
         assertNotNull(createdVehicleByRepository)
     }
 
     private fun createNewVehicle(vehicle: Vehicle):Vehicle? {
-        return VehicleRepository().createNewVehicle(vehicle)
+        return vehicleRepository.createNewVehicle(vehicle)
     }
 
 }

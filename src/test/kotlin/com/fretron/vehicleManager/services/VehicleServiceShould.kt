@@ -7,10 +7,17 @@ import com.fretron.vehicleManager.repositories.VehicleRepository
 import org.junit.Test
 import org.junit.Assert.*
 
+
 //This class has been setup to test the VehicleService class in main folder
 class VehicleServiceShould {
 
-    private var vehicleService:VehicleService = VehicleService(VehicleRepository())
+    private lateinit var vehicleRepository: VehicleRepository /*= mock(VehicleRepository::class.java)*/
+    private var vehicleService: VehicleService = VehicleService(vehicleRepository)
+
+//    @Before
+//    fun set_result_to_required_methods_of_mocked_classes() {
+//        whenever(vehicleRepository.createNewVehicle(any())).thenReturn(TestDataSource.getVehicle())
+//    }
 
 //    @Test
 //    fun createNewVehicleTest(){
@@ -28,8 +35,8 @@ class VehicleServiceShould {
     fun throw_exception_on_invalid_or_null_data(){
         var vehicle:Vehicle? = TestDataSource.getVehicle()  //vehicle provided by user/postman
 
-        assertThrows(InvalidVehicleRegistrationException::class.java){
-            vehicle!!.setRegistrationNumber(null)
+          assertThrows(InvalidVehicleRegistrationException::class.java){
+            vehicle!!.setRegistrationNumber("")
             vehicleService.createNewVehicle(vehicle!!)
         }
 

@@ -13,17 +13,17 @@ import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
 @Path("vehicle/v1")
-class VehicleResource constructor(private var vehicleService: VehicleService, private val objectMapper: ObjectMapper) {
+class VehicleResource @Inject constructor(var vehicleService: VehicleService) {
 
     @Path("vehicle")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     fun createNewVehicle(request: String): Response {
-        var createdVehicle: Vehicle? =
-            vehicleService.createNewVehicle(ObjectMapper().readValue(request, Vehicle::class.java))
+       var v:Vehicle = ObjectMapper().readValue(request,Vehicle::class.java)  //this is the vehicle converted from json String(provided by user)
+        var createdVehicle: Vehicle? =                                        // to java object
+            vehicleService.createNewVehicle(v)
         return Response.ok(createdVehicle.toString()).build()
-
     }
 
 }
