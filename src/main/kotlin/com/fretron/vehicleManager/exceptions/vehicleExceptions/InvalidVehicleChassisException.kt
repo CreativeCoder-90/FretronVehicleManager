@@ -2,6 +2,6 @@ package com.fretron.vehicleManager.exceptions.vehicleExceptions
 
 import java.lang.RuntimeException
 
-open class InvalidVehicleChassisException constructor(message:String):RuntimeException(message){
+open class InvalidVehicleChassisException constructor(message:String):VehicleException(message){
 
 }
