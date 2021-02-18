@@ -27,8 +27,34 @@ class VehicleResource @Inject constructor(var vehicleService: VehicleService) {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     fun getVehicleByUUID(@PathParam("uuid") id:String): Response{
-        var vehicleFetchedById:Vehicle = vehicleService.getVehicleById(id)
+        var vehicleFetchedById:Vehicle? = vehicleService.getVehicleById(id)
         return Response.ok().entity(vehicleFetchedById.toString()).build()
+    }
+
+    @Path("vehicles")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    fun getAllVehicles(): Response{
+        var vehiclesFetchedFromRepo: ArrayList<Vehicle> = vehicleService.getAllVehicles()
+        return Response.ok().entity(vehiclesFetchedFromRepo.toString()).build()
+    }
+
+    @Path("vehicle/{uuid}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    fun deleteVehicleById(@PathParam("uuid") id: String):Response{
+          var vehicleDeletedFromRepo:Vehicle? = vehicleService.deleteVehicleById(id)
+        return Response.ok().entity(vehicleDeletedFromRepo.toString()).build()
+    }
+
+    @Path("vehicle")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    fun updateVehicle(request: String):Response{
+        var vehicleToBeUpdated:Vehicle = ObjectMapper().readValue(request,Vehicle::class.java)
+       var vehicleUpdatedByRepository:Vehicle? = vehicleService.updateGivenVehicle(vehicleToBeUpdated)
+        return Response.ok().entity(vehicleUpdatedByRepository.toString()).build()
     }
 
 }
